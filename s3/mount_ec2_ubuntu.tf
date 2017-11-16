@@ -20,6 +20,7 @@ var "instance_type" {
 var "root_volune_size" {
     default = "20"
 }
+variable "aws_public_key" {}
 
 ## iam role
 resource "aws_iam_role" "sample-iam-role" {

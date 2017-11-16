@@ -7,6 +7,7 @@ var "instance_type" {
 var "root_volune_size" {
     default = "20"
 }
+variable "aws_public_key" {}
 
 # Subnet
 ## public
@@ -45,6 +46,23 @@ resource "aws_security_group" "sample-ec2-sg" {
 resource "aws_iam_instance_profile" "sample-instance-profile" {
     name = "sample_instance_profile"
     role = "${aws_iam_role.sample-iam-role.id}"
+}
+## role policy
+resource "aws_iam_role_policy" "keio-iam-role-policy" {
+    name = "instance_role_policy"
+    role = "${aws_iam_role.keio-iam-role.id}"
+    policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
 }
 ## iam role
 resource "aws_iam_role" "sample-iam-role" {
